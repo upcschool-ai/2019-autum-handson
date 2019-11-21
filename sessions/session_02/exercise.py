@@ -1,5 +1,7 @@
 import tensorflow as tf
 
+from sessions.session_01 import exercise_01
+
 
 def main():
     graph = tf.Graph()
@@ -10,7 +12,13 @@ def main():
         z = W * x
         y = z + b
 
-    # TODO: E03: Run a forward pass --> Run phase (use session and the DataDistribution class from previous exercise)
+    sess = tf.Session(graph=graph)
+    with sess:
+        sess.run(tf.global_variables_initializer())
+        data = exercise_01.DataDistribution()
+        for input_data, label in data.generate(num_iters=10):
+            prediction = sess.run(y, feed_dict={x: input_data})
+            print('Input: {} --> Prediction {}. Label {}'.format(input_data, prediction, label))
 
     # TODO: E04: Implement optimization step manually!
     pass
