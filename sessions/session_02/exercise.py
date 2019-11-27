@@ -41,10 +41,8 @@ def main(learning_rate, logdir):
                     x_grad = W * loss_grad
 
         # ------------------------ OPTIMIZATION -----------------------------------
-            with tf.name_scope('apply_gradients'):
-                W_update = W.assign(W - learning_rate * W_grad)
-                b_update = b.assign(b - learning_rate * b_grad)
-                train_op = tf.group(W_update, b_update)
+        optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)
+        train_op = optimizer.minimize(loss)
 
     sess = tf.Session(graph=graph)
     with sess:
