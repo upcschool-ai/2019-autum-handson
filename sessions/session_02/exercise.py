@@ -10,33 +10,39 @@ def main(learning_rate, logdir):
     graph = tf.Graph()
     with graph.as_default():
         # Inputs and labels
-        x = tf.placeholder(dtype=tf.float32, name='x')
-        y = tf.placeholder(dtype=tf.float32, name='y')
+        with tf.name_scope('input'):
+            x = tf.placeholder(dtype=tf.float32, name='x')
+            y = tf.placeholder(dtype=tf.float32, name='y')
 
         # ------------------------ FORWARD PASS -----------------------------------
         # Linear regression forward pass
-        W = tf.get_variable('W', shape=[], dtype=tf.float32)
-        b = tf.get_variable('b', shape=[], dtype=tf.float32)
-        z = W * x
-        y_ = z + b
+        with tf.variable_scope('LinearRegressor'):
+            W = tf.get_variable('W', shape=[], dtype=tf.float32)
+            b = tf.get_variable('b', shape=[], dtype=tf.float32)
+            z = W * x
+            y_ = z + b
 
         # Compute loss
-        diff = y_ - y
-        loss = tf.pow(diff, 2)
+        with tf.name_scope('MSELoss'):
+            diff = y_ - y
+            loss = tf.pow(diff, 2)
 
         # ------------------------ BACKWARD PASS -----------------------------------
-        # Loss backprop
-        loss_grad = 2 * diff
+        with tf.name_scope('SGD'):
+            with tf.name_scope('compute_gradients'):
+                with tf.name_scope('MSELoss'):
+                    # Loss backprop
+                    loss_grad = 2 * diff
 
-        # Linear regression backprop
-        W_grad = x * loss_grad
-        b_grad = 1 * loss_grad
-        x_grad = W * loss_grad
+                with tf.name_scope('LinearRegressor'):
+                    # Linear regression backprop
+                    W_grad = x * loss_grad
+                    b_grad = 1 * loss_grad
+                    x_grad = W * loss_grad
 
         # ------------------------ OPTIMIZATION -----------------------------------
-        W_update = W.assign(W - learning_rate * W_grad)
-        b_update = b.assign(b - learning_rate * b_grad)
-        train_op = tf.group(W_update, b_update)
+        optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)
+        train_op = optimizer.minimize(loss)
 
     sess = tf.Session(graph=graph)
     with sess:
