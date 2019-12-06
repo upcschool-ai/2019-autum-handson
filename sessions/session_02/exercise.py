@@ -10,7 +10,7 @@ def main(learning_rate, logdir):
     graph = tf.Graph()
     with graph.as_default():
         # Inputs and labels
-        with tf.name_scope('input'):
+        with tf.variable_scope('input'):
             x = tf.placeholder(dtype=tf.float32, name='x')
             y = tf.placeholder(dtype=tf.float32, name='y')
 
@@ -23,22 +23,9 @@ def main(learning_rate, logdir):
             y_ = z + b
 
         # Compute loss
-        with tf.name_scope('MSELoss'):
+        with tf.variable_scope('MSELoss'):
             diff = y_ - y
             loss = tf.pow(diff, 2)
-
-        # ------------------------ BACKWARD PASS -----------------------------------
-        with tf.name_scope('SGD'):
-            with tf.name_scope('compute_gradients'):
-                with tf.name_scope('MSELoss'):
-                    # Loss backprop
-                    loss_grad = 2 * diff
-
-                with tf.name_scope('LinearRegressor'):
-                    # Linear regression backprop
-                    W_grad = x * loss_grad
-                    b_grad = 1 * loss_grad
-                    x_grad = W * loss_grad
 
         # ------------------------ OPTIMIZATION -----------------------------------
         optimizer = tf.train.GradientDescentOptimizer(learning_rate=learning_rate)
