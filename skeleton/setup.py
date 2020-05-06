@@ -9,7 +9,8 @@ with open(version_file, 'rt') as f:
     version = f.read().strip()
 
 install_requires = [
-    'tensorflow==1.13.2'
+    'pyyaml~=5.3',
+    'tensorflow==1.13.2',
 ]
 
 setuptools.setup(

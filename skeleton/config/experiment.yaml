@@ -1,0 +1,8 @@
+num_classes: 2
+num_epochs: 30
+batch_size: 30
+learning_rate: 1.e-4
+logdir: '~/tmp/aidl/logs'
+checkpoint: '~/tmp/aidl/checkpoints'
+log_iters: 10
+checkpoint_iters: 50

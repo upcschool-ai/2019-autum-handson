@@ -7,7 +7,7 @@ import tensorflow as tf
 
 def create_dataset(dataset_path, images_dir, num_epochs, batch_size, shuffle=100, prefetch=10):
     dataset = tf.data.Dataset.from_generator(lambda: _generator(dataset_path, images_dir),
-                                             output_types=(tf.string, tf.string),
+                                             output_types=(tf.string, tf.int32),
                                              output_shapes=(tf.TensorShape([]), tf.TensorShape([])))
     dataset = dataset.repeat(num_epochs)
     dataset = dataset.shuffle(shuffle)  # Shuffling buffer
@@ -22,7 +22,7 @@ def _generator(path, images_dir):
         reader = csv.reader(f)
         for label, image_path in reader:
             image_path = os.path.join(images_dir, image_path)
-            yield image_path, label
+            yield image_path, int(label)
 
 
 def _create_sample(image_path, label):

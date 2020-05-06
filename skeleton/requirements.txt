@@ -15,6 +15,7 @@ markdown==3.2.1           # via tensorboard
 mock==3.0.5               # via tensorflow-estimator
 numpy==1.18.4             # via h5py, keras-applications, keras-preprocessing, tensorboard, tensorflow, tensorflow-estimator
 protobuf==3.11.3          # via tensorboard, tensorflow
+pyyaml==5.3.1             # via skeleton (setup.py)
 six==1.14.0               # via absl-py, grpcio, h5py, keras-preprocessing, mock, protobuf, tensorboard, tensorflow, tensorflow-estimator
 tensorboard==1.13.1       # via tensorflow
 tensorflow-estimator==1.13.0  # via tensorflow
