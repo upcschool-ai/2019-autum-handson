@@ -1,11 +1,12 @@
 import argparse
+import datetime
 import logging
 import os
 
 import tensorflow as tf
 import yaml
 from tensorflow.python.util import deprecation
-import datetime
+
 from skeleton.train import datasets, models
 
 # Disable tensorflow (almost all) logging bullshit
@@ -52,8 +53,12 @@ def main(dataset_csv, images_dir, experiment_config):
 
             tf.summary.image('input', images, max_outputs=4)
 
+    images = tf.identity(images, name='images')
+    labels = tf.identity(labels, name='labels')
+
     # Model
     logits = models.alexnet(images, config['num_classes'])
+    predictions = tf.nn.softmax(logits, name='predictions')  # For inference purposes
 
     # Loss
     loss_op = tf.losses.sparse_softmax_cross_entropy(labels, logits)

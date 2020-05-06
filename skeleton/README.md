@@ -34,3 +34,19 @@ After that you can easily run the scripts:
 
 - `run_pipeline.py`: Run the input pipeline only to improve its performance
 - `train.py`: Train the model
+
+
+## Process
+1. Download the dataset from the [link](https://drive.google.com/open?id=1buohX7t8Z8WSBc-21CTQWbF36rZlL8u2)
+2. Uncompress it:
+
+        tar -xzvf cats_dogs.tar.gz
+        
+3. Train the model:
+        
+        python bin/train.py python bin/train.py ~/tmp/aidl/dataset/dataset.csv ~/tmp/aidl/dataset/images config/experiment.yaml
+        
+4. Freeze the model:
+
+        python bin/freeze_graph.py ~/tmp/aidl/checkpoints/20200506-220508/model-1200 AlexNet/fc3/dense/BiasAdd ~/tmp/aidl/checkpoints/20200506-220508/frozen_model.pb
+        
