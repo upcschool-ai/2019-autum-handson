@@ -43,6 +43,7 @@ def main(dataset_csv, images_dir, experiment_config, with_gpu):
 
     # ----------------- DEFINITION PHASE ------------------- #
     global_step = tf.get_variable('global_step', dtype=tf.int32, initializer=0, trainable=False)
+    training = tf.placeholder(dtype=tf.bool, name='training')
 
     # Input pipeline
     with tf.device('/cpu:0'):
@@ -59,7 +60,7 @@ def main(dataset_csv, images_dir, experiment_config, with_gpu):
     train_device = '/gpu:0' if with_gpu else '/cpu:0'
     with tf.device(train_device):
         # Model
-        logits = models.alexnet(images, config['num_classes'])
+        logits = models.alexnet(images, config['num_classes'], training=training)
         predictions = tf.nn.softmax(logits, name='predictions')  # For inference purposes
 
         # Loss

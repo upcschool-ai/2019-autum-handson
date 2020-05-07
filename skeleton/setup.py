@@ -13,7 +13,9 @@ install_requires = [
     'numpy~=1.18',
     'opencv-contrib-python~=3.4.1',
     'pyyaml~=5.3',
+    'requests~=2.23',
     'tensorflow==1.13.2',
+    'werkzeug~=1.0',
 ]
 
 setuptools.setup(
