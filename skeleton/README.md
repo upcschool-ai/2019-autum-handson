@@ -34,6 +34,9 @@ After that you can easily run the scripts:
 
 - `run_pipeline.py`: Run the input pipeline only to improve its performance
 - `train.py`: Train the model
+- `freeze_graph.py`: Simplification of https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/tools/freeze_graph.py
+- `optimize_for_inference.py`: Copy of https://github.com/tensorflow/tensorflow/blob/master/tensorflow/python/tools/optimize_for_inference.py 
+(to avoid having to clone the repo)
 
 
 ## Process
@@ -50,3 +53,6 @@ After that you can easily run the scripts:
 
         python bin/freeze_graph.py ~/tmp/aidl/checkpoints/20200506-220508/model-1200 AlexNet/fc3/dense/BiasAdd ~/tmp/aidl/checkpoints/20200506-220508/frozen_model.pb
         
+5. Optimize the frozen model for inference purposes (empirically this can lead to a x2 speedup):
+
+        python bin/optimize_for_inference.py --input ~/tmp/aidl/checkpoints/20200506-220508/frozen_model.pb --output ~/tmp/aidl/checkpoints/20200506-220508/optimized_frozen_model.pb --input_names input_pipeline/IteratorGetNext --output_names AlexNet/fc3/dense/BiasAdd
