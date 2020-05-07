@@ -4,6 +4,8 @@ import os
 
 import tensorflow as tf
 
+from skeleton import constants
+
 
 def create_dataset(dataset_path, images_dir, num_epochs, batch_size, shuffle=100, prefetch=10):
     dataset = tf.data.Dataset.from_generator(lambda: _generator(dataset_path, images_dir),
@@ -32,9 +34,8 @@ def _create_sample(image_path, label):
             image = tf.image.decode_jpeg(raw_image, channels=3)
 
         with tf.name_scope('preprocessing'):
-            mean_channel = [123.68, 116.779, 103.939]
             image = tf.cast(image, dtype=tf.float32)
-            image = tf.subtract(image, mean_channel, name='mean_substraction')
+            image = tf.subtract(image, constants.IMAGENET_MEAN, name='mean_substraction')
             image = tf.image.resize_images(image, size=(256, 256))
 
         with tf.name_scope('data_augmentation'):

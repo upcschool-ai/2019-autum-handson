@@ -9,6 +9,8 @@ with open(version_file, 'rt') as f:
     version = f.read().strip()
 
 install_requires = [
+    'numpy~=1.18',
+    'opencv-contrib-python~=3.4.1',
     'pyyaml~=5.3',
     'tensorflow==1.13.2',
 ]
