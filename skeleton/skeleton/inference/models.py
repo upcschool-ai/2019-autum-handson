@@ -14,13 +14,15 @@ class AlexNet:
         self._graph = load_graph(self._model_path)
         self._sess = tf.Session(graph=self._graph)
 
-        self._image_placeholder = self._graph.get_tensor_by_name('input_pipeline/IteratorGetNext:0')
-        self._prediction = self._graph.get_tensor_by_name('AlexNet/fc3/dense/BiasAdd:0')
+        self._image_placeholder = self._graph.get_tensor_by_name('images:0')
+        self._prediction = self._graph.get_tensor_by_name('predictions:0')
+        self._training_placeholder = self._graph.get_tensor_by_name('training:0')
 
     def predict(self, image):
         image = np.asarray(image)
         normalized_image = np.subtract(image, constants.IMAGENET_MEAN)
         resized_image = cv2.resize(normalized_image, dsize=(227, 227))
         resized_image = np.expand_dims(resized_image, axis=0)  # Fake batch dimension
-        result = self._sess.run(self._prediction, feed_dict={self._image_placeholder: resized_image})
+        result = self._sess.run(self._prediction,
+                                feed_dict={self._image_placeholder: resized_image, self._training_placeholder: False})
         return np.squeeze(result)  # Remove batch dim

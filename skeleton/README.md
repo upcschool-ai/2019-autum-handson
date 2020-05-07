@@ -41,6 +41,7 @@ After that you can easily run the scripts:
 
 
 ## Process
+To train and prepare the model for inference:
 1. Download the dataset from the [link](https://drive.google.com/open?id=1buohX7t8Z8WSBc-21CTQWbF36rZlL8u2)
 2. Uncompress it:
 
@@ -52,8 +53,14 @@ After that you can easily run the scripts:
         
 4. Freeze the model:
 
-        python bin/freeze_graph.py ~/tmp/aidl/checkpoints/20200506-220508/model-1200 AlexNet/fc3/dense/BiasAdd ~/tmp/aidl/checkpoints/20200506-220508/frozen_model.pb
+        python bin/freeze_graph.py ~/tmp/aidl/checkpoints/20200507-172205/model-50 predictions ~/tmp/aidl/checkpoints/20200507-172205/frozen_model.pb
         
 5. Optimize the frozen model for inference purposes (empirically this can lead to a x2 speedup):
 
-        python bin/optimize_for_inference.py --input ~/tmp/aidl/checkpoints/20200506-220508/frozen_model.pb --output ~/tmp/aidl/checkpoints/20200506-220508/optimized_frozen_model.pb --input_names input_pipeline/IteratorGetNext --output_names AlexNet/fc3/dense/BiasAdd
+        python bin/optimize_for_inference.py --input ~/tmp/aidl/checkpoints/20200507-172205/frozen_model.pb --output ~/tmp/aidl/checkpoints/20200507-172205/optimized_frozen_model.pb --input_names images,training --output_names predictions
+        
+To start the API:
+1. Install docker, check the [installation guide](https://www.docker.com/get-started)
+2. Start the API service defined in `docker-compose.yaml`:
+
+        docker-compose up --build skeleton-api

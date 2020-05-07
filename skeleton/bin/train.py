@@ -86,7 +86,8 @@ def main(dataset_csv, images_dir, experiment_config, with_gpu):
         try:
             while True:
                 # Run the train step
-                _, loss, step, summ_val = sess.run([train_step, loss_op, global_step, summary_op])
+                _, loss, step, summ_val = sess.run([train_step, loss_op, global_step, summary_op],
+                                                   feed_dict={training: True})
                 # Print how the loss is evolving per step in order to check if the model is converging
                 if step < 20 or step % config['log_iters'] == 0:
                     logger.info('Step %d\tLoss=%0.4f', step, loss)

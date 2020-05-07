@@ -25,4 +25,4 @@ def load_graph(model_path, graph=None, prefix='', **kwargs):
     except tf.errors.NotFoundError as e:
         raise IOError(e.message)
     except Exception as e:
-        raise IOError('Could not decode graph. {}'.format(e.message))
+        raise IOError('Could not decode graph')
