@@ -1,0 +1,6 @@
+version: '3'
+services:
+  skeleton-api:
+    build: .
+    ports:
+      - 5067:5067

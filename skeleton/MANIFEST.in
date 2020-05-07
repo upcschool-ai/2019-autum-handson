@@ -1,0 +1,2 @@
+include skeleton/__version__
+include skeleton/inference/optimized_frozen_model.pb
