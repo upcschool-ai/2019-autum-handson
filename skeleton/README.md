@@ -1,7 +1,8 @@
 # Skeleton DL project
 Toy example to explain how to build a DL project, from model development to deployment.
 
-Note: this is **NOT** production ready, some extra changes would be needed
+Note: this is **NOT** production ready, some extra changes would be needed. There are many changes to be made to this
+project to make it suitable for such environments.
 
 ## Setup
 1. Install `virtualenvwrapper` to easily manage python virtual environments. You can use the vanilla `virtualenv` or 

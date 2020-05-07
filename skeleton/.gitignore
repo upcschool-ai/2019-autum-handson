@@ -1,0 +1,13 @@
+# JetBrains IDE
+/.idea/
+
+# Python distribution
+/dist/
+*.egg-info
+/build/
+*.pyc
+
+# Tests & coverage
+/htmlcov/
+/.pytest_cache/
+/.coverage
