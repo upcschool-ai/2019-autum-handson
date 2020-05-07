@@ -7,7 +7,7 @@ import tensorflow as tf
 from skeleton import constants
 
 
-def create_dataset(dataset_path, images_dir, num_epochs, batch_size, shuffle=100, prefetch=10):
+def create_dataset(dataset_path, images_dir, num_epochs, batch_size, shuffle=500, prefetch=10):
     dataset = tf.data.Dataset.from_generator(lambda: _generator(dataset_path, images_dir),
                                              output_types=(tf.string, tf.int32),
                                              output_shapes=(tf.TensorShape([]), tf.TensorShape([])))

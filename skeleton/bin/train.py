@@ -23,7 +23,7 @@ loghandler.setFormatter(logging.Formatter('%(asctime)s | %(levelname)s: %(messag
 logger.addHandler(loghandler)
 
 
-def main(dataset_csv, images_dir, experiment_config):
+def main(dataset_csv, images_dir, experiment_config, with_gpu):
     # ----------------- TRAINING SETUP ---------------- #
     with open(experiment_config, 'r') as f:
         config = yaml.safe_load(f)
@@ -56,17 +56,19 @@ def main(dataset_csv, images_dir, experiment_config):
     images = tf.identity(images, name='images')
     labels = tf.identity(labels, name='labels')
 
-    # Model
-    logits = models.alexnet(images, config['num_classes'])
-    predictions = tf.nn.softmax(logits, name='predictions')  # For inference purposes
+    train_device = '/gpu:0' if with_gpu else '/cpu:0'
+    with tf.device(train_device):
+        # Model
+        logits = models.alexnet(images, config['num_classes'])
+        predictions = tf.nn.softmax(logits, name='predictions')  # For inference purposes
 
-    # Loss
-    loss_op = tf.losses.sparse_softmax_cross_entropy(labels, logits)
-    tf.summary.scalar('Loss', loss_op)
+        # Loss
+        loss_op = tf.losses.sparse_softmax_cross_entropy(labels, logits)
+        tf.summary.scalar('Loss', loss_op)
 
-    # Optimizer
-    optimizer = tf.train.AdamOptimizer(learning_rate=config['learning_rate'])
-    train_step = optimizer.minimize(loss_op, global_step=global_step)
+        # Optimizer
+        optimizer = tf.train.AdamOptimizer(learning_rate=config['learning_rate'])
+        train_step = optimizer.minimize(loss_op, global_step=global_step)
 
     # Summary op
     summary_op = tf.summary.merge_all()
@@ -100,6 +102,7 @@ if __name__ == '__main__':
     parser.add_argument('dataset_csv', help='Path to the CSV decribing the dataset')
     parser.add_argument('images_dir', help='Path to the images directory')
     parser.add_argument('experiment_config', help='Path to the experiment configuration')
+    parser.add_argument('--gpu', '-g', action='store_true', help='Either to train with GPU or not')
     args = parser.parse_args()
 
-    main(args.dataset_csv, args.images_dir, args.experiment_config)
+    main(args.dataset_csv, args.images_dir, args.experiment_config, args.gpu)
