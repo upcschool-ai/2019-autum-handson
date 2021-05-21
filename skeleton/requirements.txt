@@ -29,7 +29,7 @@ requests==2.23.0          # via skeleton (setup.py)
 six==1.14.0               # via absl-py, grpcio, h5py, keras-preprocessing, mock, protobuf, tensorboard, tensorflow, tensorflow-estimator
 tensorboard==1.13.1       # via tensorflow
 tensorflow-estimator==1.13.0  # via tensorflow
-tensorflow==1.13.2        # via skeleton (setup.py)
+tensorflow==2.5.0        # via skeleton (setup.py)
 termcolor==1.1.0          # via tensorflow
 urllib3==1.25.9           # via requests
 werkzeug==1.0.1           # via flask, skeleton (setup.py), tensorboard
