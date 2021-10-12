@@ -11,7 +11,7 @@ with open(version_file, 'rt') as f:
 install_requires = [
     'Flask~=1.1',
     'numpy~=1.18',
-    'opencv-contrib-python~=3.4.1',
+    'opencv-contrib-python>=3.4.1,<4.3.0',
     'pyyaml~=5.3',
     'requests~=2.23',
     'tensorflow==1.13.2',

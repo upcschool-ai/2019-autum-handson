@@ -22,7 +22,7 @@ markdown==3.2.1           # via tensorboard
 markupsafe==1.1.1         # via jinja2
 mock==3.0.5               # via tensorflow-estimator
 numpy==1.18.4             # via h5py, keras-applications, keras-preprocessing, opencv-contrib-python, skeleton (setup.py), tensorboard, tensorflow, tensorflow-estimator
-opencv-contrib-python==3.4.9.33  # via skeleton (setup.py)
+opencv-contrib-python==4.2.0.32  # via skeleton (setup.py)
 protobuf==3.11.3          # via tensorboard, tensorflow
 pyyaml==5.3.1             # via skeleton (setup.py)
 requests==2.23.0          # via skeleton (setup.py)
