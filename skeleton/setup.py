@@ -14,7 +14,7 @@ install_requires = [
     'opencv-contrib-python~=3.4.1',
     'pyyaml~=5.3',
     'requests~=2.23',
-    'tensorflow==1.13.2',
+    'tensorflow==2.9.3',
     'werkzeug~=1.0',
 ]
 
