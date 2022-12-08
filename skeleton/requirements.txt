@@ -6,7 +6,7 @@
 #
 absl-py==0.9.0            # via tensorboard, tensorflow, tensorflow-estimator
 astor==0.8.1              # via tensorflow
-certifi==2020.4.5.1       # via requests
+certifi==2022.12.7       # via requests
 chardet==3.0.4            # via requests
 click==7.1.2              # via flask
 flask==1.1.2              # via skeleton (setup.py)
