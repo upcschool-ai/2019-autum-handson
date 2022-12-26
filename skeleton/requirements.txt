@@ -33,7 +33,7 @@ tensorflow==1.13.2        # via skeleton (setup.py)
 termcolor==1.1.0          # via tensorflow
 urllib3==1.25.9           # via requests
 werkzeug==1.0.1           # via flask, skeleton (setup.py), tensorboard
-wheel==0.34.2             # via tensorboard, tensorflow
+wheel==0.38.1             # via tensorboard, tensorflow
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
